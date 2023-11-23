@@ -1,4 +1,4 @@
-# Entra21-Banco-de-Dados-SQL <img alt="MySQL" src="https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white">
+# Entra21 Banco de Dados SQL <img alt="MySQL" src="https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white">
 
 ## Durante o desenvolvimento do trabalho pude aprimorar os meus conhecimentos no banco de dados MySQL <br>
 ## Pude amplinhar os conhecimentos nos comandos de CRUD e assim concluir o trabalho com êxito <br>
