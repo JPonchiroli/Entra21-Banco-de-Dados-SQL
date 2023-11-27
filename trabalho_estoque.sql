@@ -129,20 +129,45 @@ order by quantidade_saida desc;
 select count(nome_produto) as "Quantiade de Produtos Cadastrados" 
 from produtos;
 
--- 5.5
+-- 5.5 Selecione todos os produtos em estoque. 
+
+select p.id_produto, p.nome_produto, e.quantidade_entrada, s.quantidade_saida, (e.quantidade_entrada - s.quantidade_saida) as "saldo_atual"
+from produtos p
+inner join (select id_produto, sum(quantidade_entrada) as quantidade_entrada from entradas_estoque group by id_produto) e
+    on p.id_produto = e.id_produto
+inner join (select id_produto, sum(quantidade_saida) as quantidade_saida from saidas_estoque group by id_produto) s
+    on e.id_produto = s.id_produto
+    where (e.quantidade_entrada - s.quantidade_saida) > 0;
 
 -- 5.6 Liste as operações de entrada em um determinado período.
+
 select p.id_produto, p.nome_produto, e.quantidade_entrada, e.data_entrada
 from produtos p, entradas_estoque e
 where p.id_produto = e.id_produto and
 e.data_entrada = '2023-11-01';
 
 -- 5.7 Mostre as operações de saída de um produto específico.
+
 select p.id_produto, p.nome_produto, s.quantidade_saida
 from produtos p, saidas_estoque s
 where p.id_produto = s.id_produto and
-p.nome_produto like 'Meia Soquete%'
+p.nome_produto like 'Meia Soquete%';
 
--- 5.8
--- 5.9
--- 5.10
+-- 5.8 Calcule o saldo atual de cada produto.
+
+select p.id_produto, p.nome_produto, e.quantidade_entrada, s.quantidade_saida, (e.quantidade_entrada - s.quantidade_saida) as "saldo_atual"
+from produtos p
+inner join (select id_produto, sum(quantidade_entrada) as quantidade_entrada from entradas_estoque group by id_produto) e
+    on p.id_produto = e.id_produto
+inner join (select id_produto, sum(quantidade_saida) as quantidade_saida from saidas_estoque group by id_produto) s
+    on e.id_produto = s.id_produto;
+
+-- 5.9 Identifique produtos com estoque abaixo de um nível mínimo. (nivel minimo 5)
+
+select p.id_produto, p.nome_produto, e.quantidade_entrada, s.quantidade_saida, (e.quantidade_entrada - s.quantidade_saida) as "saldo_atual"
+from produtos p
+inner join (select id_produto, sum(quantidade_entrada) as quantidade_entrada from entradas_estoque group by id_produto) e
+    on p.id_produto = e.id_produto
+inner join (select id_produto, sum(quantidade_saida) as quantidade_saida from saidas_estoque group by id_produto) s
+    on e.id_produto = s.id_produto
+    where (e.quantidade_entrada - s.quantidade_saida) <= 5;
